@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Air V3 Neo</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0f1117;
+    --surface:#181c27;
+    --border:#252a38;
+    --text:#e8eaf0;
+    --muted:#c8d0e0;
+    --blue:#4f8ef7;
+    --green:#34d399;
+    --amber:#fbbf24;
+    --red:#f87171;
+    --purple:#a78bfa;
+  }
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+
+  /* Progress */
+  #bar{height:3px;background:var(--border);flex-shrink:0;}
+  #bar-fill{height:100%;width:0;background:var(--blue);transition:width .4s linear;}
+
+  /* Deck */
+  #deck{flex:1;position:relative;overflow:hidden;}
+  .slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease;display:flex;flex-direction:column;padding:52px 72px 0;}
+  .slide.active{opacity:1;pointer-events:all;}
+
+  /* Slide header */
+  .tag{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
+  .tag-blue{color:var(--blue);}
+  .tag-green{color:var(--green);}
+  .tag-red{color:var(--red);}
+  .tag-amber{color:var(--amber);}
+  .tag-purple{color:var(--purple);}
+  h1{font-size:42px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;margin-bottom:8px;}
+  .desc{font-size:20px;color:#9ca3b0;margin-bottom:28px;}
+
+  /* Table */
+  .tbl{width:100%;border-collapse:collapse;flex:1;}
+  .tbl thead tr{border-bottom:1px solid var(--border);}
+  .tbl thead th{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8b95a8;padding:0 20px 14px;text-align:left;}
+  .tbl thead th:first-child{padding-left:0;}
+  .tbl tbody tr{border-bottom:1px solid var(--border);}
+  .tbl tbody tr:last-child{border-bottom:none;}
+  .tbl tbody td{padding:18px 20px;vertical-align:top;font-size:20px;line-height:1.6;color:#dde3ed;}
+  .tbl tbody td:first-child{padding-left:0;font-weight:700;color:#fff;white-space:nowrap;width:240px;}
+  .tbl tbody td:last-child{color:#c8d0e0;font-size:18px;}
+  .tbl tbody td .new{font-weight:700;color:#fff;}
+  .chip{display:inline-block;font-size:14px;font-weight:600;padding:3px 12px;border-radius:20px;margin-bottom:4px;}
+  .chip-blue{background:rgba(79,142,247,.15);color:var(--blue);}
+  .chip-green{background:rgba(52,211,153,.15);color:var(--green);}
+  .chip-amber{background:rgba(251,191,36,.15);color:var(--amber);}
+
+  /* Title slide */
+  .title-slide{justify-content:center;padding:72px;}
+  .title-slide .eyebrow{font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:20px;}
+  .title-slide h1{font-size:80px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-2px;margin-bottom:16px;}
+  .title-slide .sub{font-size:24px;color:#9ca3b0;max-width:600px;line-height:1.6;margin-bottom:52px;}
+  .modules{display:flex;gap:12px;flex-wrap:wrap;}
+  .mod{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 24px;font-size:18px;color:#dde3ed;}
+  .mod .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+  /* Foooter nav */
+  #foot{height:56px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 72px;flex-shrink:0;}
+  #foot-label{font-size:13px;color:var(--muted);font-weight:600;}
+  #dots{display:flex;gap:6px;align-items:center;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s;}
+  .dot.on{background:var(--blue);width:20px;border-radius:3px;}
+  #count{font-size:13px;color:var(--muted);min-width:48px;text-align:right;}
+</style>
+</head>
+<body>
+
+<div id="bar"><div id="bar-fill"></div></div>
+
+<div id="deck">
+
+<!-- 0 Title -->
+<div class="slide title-slide active">
+  <h1>Air V3 Neo</h1>
+  <div class="modules">
+    <div class="mod"><div class="dot" style="background:var(--blue)"></div>Mother Robot</div>
+    <div class="mod"><div class="dot" style="background:var(--green)"></div>Child Robot</div>
+    <div class="mod"><div class="dot" style="background:var(--red)"></div>Presentation Area</div>
+    <div class="mod"><div class="dot" style="background:var(--amber)"></div>Charging Dock</div>
+  </div>
+</div>
+
+<!-- 1 Mother – Control Hardware -->
+<div class="slide">
+  <div class="tag tag-blue">Mother Robot · 1 of 2</div>
+  <h1>Control Hardware Changes</h1>
+  <div class="desc">Drive, power, connectivity and safety upgrades</div>
+  <table class="tbl">
+    <thead><tr><th>Component</th><th>Change</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Drive Motor</td>
+        <td><span class="new">Kinco iWMC 400W</span></td>
+        <td>Enhanced accuracy, simpler control</td>
+      </tr>
+      <tr>
+        <td>Battery</td>
+        <td><span class="new">LFP 48V</span> + Current Calibrated BMS<br><span class="chip chip-blue">Moving to LMFP</span></td>
+        <td>Safer chemistry, higher cycle life, accurate SOC estimation</td>
+      </tr>
+      <tr>
+        <td>Contactors & Relays</td>
+        <td><span class="new">Sealed & forced guided</span></td>
+        <td>External dust and contamination prevention</td>
+      </tr>
+      <tr>
+        <td>Ethernet Switch</td>
+        <td><span class="new">Phoenix Contact 8-Port</span></td>
+        <td>Upgrade from Wago which has failed in past</td>
+      </tr>
+      <tr>
+        <td>E-Stop</td>
+        <td><span class="new">Pizzato</span></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>RC</td>
+        <td><span class="new">Added</span></td>
+        <td>Enables remote power cycle and hibernation mode</td>
+      </tr>
+      <tr>
+        <td>Connector</td>
+        <td><span class="new">Staubli with LMFB</span></td>
+        <td>New version</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 2 Mother – Wiring & Mechanical -->
+<div class="slide">
+  <div class="tag tag-blue">Mother Robot · 2 of 2</div>
+  <h1>Wiring & Mechanical Changes</h1>
+  <div class="desc">Harness modularity, dock redesign and structural simplification</div>
+  <table class="tbl">
+    <thead><tr><th>Area</th><th>Change</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Component Placement</td>
+        <td>Clubbed as <span class="new">modules</span></td>
+        <td>Better spare part management, faster replacement</td>
+      </tr>
+      <tr>
+        <td>Harness</td>
+        <td>Full harness set with <span class="new">connectors between component sets</span></td>
+        <td>Cleaner wiring, easier serviceability</td>
+      </tr>
+      <tr>
+        <td>Communication Cable</td>
+        <td><span class="new">Multicore cables</span> replacing JST pins</td>
+        <td>RS-485 communication reliability</td>
+      </tr>
+      <tr>
+        <td>Mother–Child Dock</td>
+        <td>Compliant top plate with Child on <span class="new">aligner tracks</span></td>
+        <td>Constrains Child position w.r.t. rack; same pinion orientation at all climb nodes</td>
+      </tr>
+      <tr>
+        <td>Suspension</td>
+        <td><span class="new">Removed</span> — castor-based rocking added</td>
+        <td>Suspension was redundant in V3</td>
+      </tr>
+      <tr>
+        <td>Height</td>
+        <td>Constrained by <span class="new">wheel diameter</span></td>
+        <td>Tote rester lowered for Level 1 pick inside flange</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 3 Child – Control Hardware -->
+<div class="slide">
+  <div class="tag tag-green">Child Robot · 1 of 3</div>
+  <h1>Control Hardware Changes</h1>
+  <div class="desc">Edge compute, motor and power upgrades</div>
+  <table class="tbl">
+    <thead><tr><th>Component</th><th>Change</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>On-board Computer</td>
+        <td><span class="new">DFi added</span></td>
+        <td>Switch high-level control to DFi</td>
+      </tr>
+      <tr>
+        <td>Latch Motor</td>
+        <td><span class="new">Cubemars 48V 480W</span> + Kinco PRC Bleeder Module</td>
+        <td>Higher power, controlled braking</td>
+      </tr>
+      <tr>
+        <td>Fork Motor</td>
+        <td>Upgraded to <span class="new">Feetech 260 kg·cm peak torque</span></td>
+        <td>Higher torque for reliable fork operation</td>
+      </tr>
+      <tr>
+        <td>Battery</td>
+        <td><span class="new">LFP 48V</span> + Current Calibrated BMS</td>
+        <td>Safer chemistry, higher cycle life, accurate SOC estimation</td>
+      </tr>
+      <tr>
+        <td>Ethernet Switch</td>
+        <td><span class="new">Phoenix Contact 8-Port</span></td>
+        <td>Upgrade from Wago</td>
+      </tr>
+      <tr>
+        <td>IMU</td>
+        <td><span class="new">Added at centre of Child</span></td>
+        <td>Precise motion and orientation feedback</td>
+      </tr>
+      <tr>
+        <td>E-Stop / Contactors</td>
+        <td><span class="new">Pizzato</span> · Sealed & forced guided</td>
+        <td>Safety and contamination prevention</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 4 Child – Wiring & Mechanical -->
+<div class="slide">
+  <div class="tag tag-green">Child Robot · 2 of 3</div>
+  <h1>Wiring & Mechanical Changes</h1>
+  <div class="desc">Climb redesign, harness improvements and accessibility fixes</div>
+  <table class="tbl">
+    <thead><tr><th>Area</th><th>Change</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Harness</td>
+        <td>Full harness set, <span class="new">connectors between modules</span>, multicore RS-485</td>
+        <td>Better spare part management, faster replacement</td>
+      </tr>
+      <tr>
+        <td>Ethernet Crimping</td>
+        <td><span class="new">Improved crimping process</span></td>
+        <td>Had many issues with Superlead connectors previously</td>
+      </tr>
+      <tr>
+        <td>Antenna</td>
+        <td><span class="new">Wiring re-routed</span></td>
+        <td>Signal reliability improvement</td>
+      </tr>
+      <tr>
+        <td>Climb Pinion</td>
+        <td><span class="new">Integrated Shaft + Pinion</span></td>
+        <td>Compliance in climb mechanism</td>
+      </tr>
+      <tr>
+        <td>Climb Compliance</td>
+        <td>Redesigned — weight borne by <span class="new">guide blocks</span> + additional flange roller</td>
+        <td>Ensures climb weight is properly distributed</td>
+      </tr>
+      <tr>
+        <td>Height</td>
+        <td>Constrained by <span class="new">climb motor gearbox height</span></td>
+        <td>Tote rester lowered for Level 1 pick inside flange</td>
+      </tr>
+      <tr>
+        <td>Base Align</td>
+        <td><span class="new">New fix</span> (tested)</td>
+        <td>Resolves base alignment issues</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 5 Child – Software -->
+<div class="slide">
+  <div class="tag tag-green">Child Robot · 3 of 3</div>
+  <h1>Software Updates</h1>
+  <div class="desc">Smarter climb targeting and FMS integration</div>
+  <table class="tbl">
+    <thead><tr><th>Feature</th><th>Change</th><th>Benefit</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Climb Height Achieve</td>
+        <td>Reach box location using <span class="new">Bin Tag</span> instead of rack tag</td>
+        <td>Removes need for rack tag; saves vertical height in rack structure</td>
+      </tr>
+      <tr>
+        <td>Box Transfer to PA</td>
+        <td>New actions integrated with <span class="new">FMS</span></td>
+        <td>Seamless handoff to Presentation Area workflow</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 6 PA -->
+<div class="slide">
+  <div class="tag tag-red">Presentation Area (PA)</div>
+  <h1>Mechanical, Control & Software</h1>
+  <div class="desc">Separated mechanisms for box transfer, weighing and presentation</div>
+  <table class="tbl">
+    <thead><tr><th>Area</th><th>Change</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Mechanism Design</td>
+        <td>Separate <span class="new">Box Transfer, Weight Measurement & Presentation</span></td>
+        <td>Decoupled for independent operation and maintainability</td>
+      </tr>
+      <tr>
+        <td>Turntable</td>
+        <td>With <span class="new">Tote Rester and load cell</span> mounted on it</td>
+        <td>Handles presentation and weight measurement</td>
+      </tr>
+      <tr>
+        <td>Vertical Lift</td>
+        <td><span class="new">Ball screw mechanism</span> lifts the turntable assembly</td>
+        <td>Precise vertical positioning</td>
+      </tr>
+      <tr>
+        <td>Actuators</td>
+        <td>Turntable → <span class="new">100W Kinco AC</span> · Lift → <span class="new">200W Kinco AC</span></td>
+        <td>Right-sized motors per mechanism</td>
+      </tr>
+      <tr>
+        <td>Controller</td>
+        <td><span class="new">Omron PLC</span></td>
+        <td>PA ↔ AIR communication contract defined</td>
+      </tr>
+      <tr>
+        <td>Software</td>
+        <td>New actions integrated with <span class="new">FMS</span></td>
+        <td>Full fleet orchestration across PA workflow</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 7 CD -->
+<div class="slide">
+  <div class="tag tag-amber">Charging Dock (CD)</div>
+  <h1>Control & Software Upgrades</h1>
+  <div class="desc">Smarter, context-aware charging via M100</div>
+  <table class="tbl">
+    <thead><tr><th>Area</th><th>Change</th><th>Benefit</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Controller</td>
+        <td><span class="new">M100 added</span> — connected with PA's Omron PLC</td>
+        <td>Enables smarter charging decisions based on fleet state</td>
+      </tr>
+      <tr>
+        <td>Software</td>
+        <td><span class="new">Charging feedback & charging logic</span> routed through M100</td>
+        <td>Context-aware charge scheduling across fleet</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 8 Summary -->
+<div class="slide">
+  <div class="tag tag-purple">Summary</div>
+  <h1>Key Improvements at a Glance</h1>
+  <div class="desc">Air V3 Neo across all subsystems</div>
+  <table class="tbl">
+    <thead><tr><th>Theme</th><th>Highlights</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Safety & Power</td>
+        <td>LFP 48V batteries with calibrated BMS across Mother & Child · Moving to LMFP chemistry</td>
+      </tr>
+      <tr>
+        <td>Connectivity</td>
+        <td>Phoenix Contact 8-Port Ethernet replaces Wago · Better Ethernet crimping on Child</td>
+      </tr>
+      <tr>
+        <td>Compute & Control</td>
+        <td>DFi on-board computer in Child · Omron PLC for PA · M100 for smart charging</td>
+      </tr>
+      <tr>
+        <td>Mechanical</td>
+        <td>Integrated Shaft + Pinion · Aligner track dock · Suspension removed · Separate PA mechanisms</td>
+      </tr>
+      <tr>
+        <td>Software</td>
+        <td>Bin Tag–based climb height eliminates rack tag · FMS integration across Child, PA and CD</td>
+      </tr>
+      <tr>
+        <td>Serviceability</td>
+        <td>Modular harness sets · Multicore RS-485 cables · RC and Superlead connectors made accessible</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- /deck -->
+
+<div id="foot">
+  <div id="foot-label">Air V3 Neo · Axis Bank</div>
+  <div id="dots"></div>
+  <div id="count"></div>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  const count=document.getElementById('count');
+  const fill=document.getElementById('bar-fill');
+  const N=slides.length;
+  const DUR=(i)=>i===0?5000:30000;
+  let cur=0,iv,af,t0;
+
+  slides.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' on':'');
+    d.onclick=()=>go(i);
+    dots.appendChild(d);
+  });
+
+  function go(i){
+    slides[cur].classList.remove('active');
+    cur=(i+N)%N;
+    slides[cur].classList.add('active');
+    [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===cur));
+    count.textContent=(cur+1)+' / '+N;
+    reset();
+  }
+
+  function reset(){
+    clearInterval(iv);cancelAnimationFrame(af);
+    t0=Date.now();tick();
+    iv=setInterval(()=>go(cur+1),DUR(cur));
+  }
+
+  function tick(){
+    const p=Math.min((Date.now()-t0)/DUR(cur),1);
+    fill.style.width=(p*100)+'%';
+    if(p<1)af=requestAnimationFrame(tick);
+  }
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown')go(cur+1);
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);
+  });
+
+  count.textContent='1 / '+N;
+  reset();
+</script>
+</body>
+</html>
